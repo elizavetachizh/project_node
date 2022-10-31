@@ -1,0 +1,12 @@
+section {
+    width: 90%;
+    margin:  0 auto;
+}
+button.btn {
+    border: 1px solid red;
+    color: black
+}
+button.btn:hover {
+    border: 1px solid red;
+    color: black
+}

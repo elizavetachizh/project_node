@@ -1,0 +1,31 @@
+
+<h2 class="page-title">Список созданных страниц</h2>
+<br><br>
+<a href="/admin_page/add_page" class="btn btn-primary">Создать новую страницу</a>
+<br><br>
+
+<table class="table table-striped sorting">
+
+    <thead>
+        <tr class="home">
+            <th>Title</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+<tbody>
+        <% pages.forEach(function(page){ %>
+              <tr id="id_<%= page._id %>" class="<%= page.slug %>">
+                  <td><%= page.title %></td>
+                  <td><a href="/admin_page/edit-page/<%= page._id %>">Edit</a></td>
+                  <% if (page.slug == "home") { %>
+                  <td></td>
+                  <% }  else {%>
+                  <td><a class="confirmDeletion" href="/admin_page/delete-page/<%= page._id %>">Delete</a></td>
+                  <% }%>
+              </tr>
+              <% }); %>
+    </tbody>
+</table>
+
+<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>

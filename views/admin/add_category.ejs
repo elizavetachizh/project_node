@@ -1,0 +1,19 @@
+<div><a href="/admin_category/" class="btn btn-primary">Вернуться ко всем категориям</a></div>
+</br>
+<form method="post" action="/admin_category/add_category">
+
+    <div class="form-group">
+        <label for="">Название</label>
+        <input type="text" class="form-control" name="title" value="<%= title %>" placeholder="Title">
+    </div>
+</br>
+    <button class="btn">Сохранить</button>
+
+    <% if (errors) {%>
+        <% errors.forEach(function(error) { %>
+        <div class="alert alert-danger">
+            <%= error.msg %>
+        </div>
+        <% });%>
+    <% }%>
+</form>

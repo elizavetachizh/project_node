@@ -1,0 +1,41 @@
+
+<h2 class="page-title">Продукты</h2>
+<a href="/admin_products/add-product" class="btn btn-primary">Добавить новый продукт</a>
+<br><br>
+<% if (count > 0) { %>
+<table class="table table-striped sorting">
+
+    <thead>
+      <tr class="home">
+                  <th>Product</th>
+                  <th>Price</th>
+                  <th>Category</th>
+                  <th>Product Image</th>
+                  <th>Edit</th>
+                  <th>Delete</th>
+              </tr>
+    </thead>
+     <tbody>
+            <% products.forEach(function(product){ %>
+            <tr>
+                <td><%= product.title %></td>
+                <td>$<%= parseFloat(product.price).toFixed(2) %></td>
+                <td><%= product.category %></td>
+                <td>
+                    <% if (product.image == "") { %>
+                    <img id="noimage" src="/images/noimage.png">
+                    <% } else {%>
+                    <img id="noimage" src="/public/images/<%= product.image %>">
+                    <% }%>
+                </td>
+                <td><a href="/admin_products/edit-product/<%= product._id %>">Edit</a></td>
+                <td><a class="confirmDeletion" href="/admin_products/delete-product/<%= product._id %>">Delete</a></td>
+            </tr>
+            <% }); %>
+        </tbody>
+</table>
+<% } else {%>
+<h3 class="text-center">Нет ни одного созданного продукта</h3>
+<% }%>
+
+<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>

@@ -1,0 +1,43 @@
+<main>
+  <h1 class="visually-hidden">Headers examples</h1>
+
+  <div class="container">
+    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+      <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+        <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
+      </a>
+
+      <ul class="nav nav-pills">
+         <li class="nav-item"><a href="/home" class="nav-link">Основная</a></li>
+        <li class="nav-item"><a href="/" class="nav-link">Авторизация</a></li>
+        <li class="nav-item"><a href="/admin_page/add_page" class="nav-link">Панель администрирования</a></li>
+        <li class="nav-item"><a href="/pages" class="nav-link">Страницы</a></li>
+        <li class="nav-item"><a href="/admin_category" class="nav-link">Категории</a></li>
+        <li class="nav-item"><a href="/admin_products" class="nav-link">Продукты</a></li>
+      </ul>
+       <ul class="nav navbar-nav">
+                              <% pages.forEach(function(page){ %>
+                              <% if (page.slug == "home") { %>
+                              <li><a href="/"><%= page.title %></a></li>
+                              <% } else {%>
+                              <li><a href="/<%= page.slug %>"><%= page.title %></a></li>
+                              <% } %>
+                              <% }); %>
+                          </ul>
+
+    <div>   <ul class="nav navbar-nav navbar-right">
+                                       <li>
+                                           <a href="/cart/checkout">My Cart (
+                                               <% if (typeof cart !== "undefined") { %>
+                                               <%= cart.length %>
+                                               <% } else {%>
+                                               0
+                                               <% } %>
+                                           )</a>
+                                       </li>
+                                       </ul></div>
+    </header>
+  </div>
+  <div class="b-example-divider"></div>
+</main>
+

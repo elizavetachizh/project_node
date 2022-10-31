@@ -1,0 +1,26 @@
+
+<h2 class="page-title">Страницы</h2>
+<a href="/admin_category/add_category" class="btn btn-primary">Добавить новую категорию</a>
+<br><br>
+
+<table class="table table-striped sorting">
+
+    <thead>
+        <tr class="home">
+            <th>Category</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+<tbody>
+        <% categories.forEach(function(category){ %>
+              <tr>
+                  <td><%= category.title %></td>
+                  <td><a href="/admin_category/edit-category/<%= category._id %>">Edit</a></td>
+                  <td><a class="confirmDeletion" href="/admin_category/delete-category/<%= category._id %>">Delete</a></td>
+              </tr>
+              <% }); %>
+    </tbody>
+</table>
+
+<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
