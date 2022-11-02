@@ -43,7 +43,6 @@ router.post("/add_page", (req, res) => {
           "danger",
           "Данная страницы была создана ранее, попробуйте создать новую"
         );
-        console.log(req.flash("danger"));
         res.render("admin/add_page", {
           title: title,
           slug: slug,
@@ -85,8 +84,6 @@ router.post("/add_page", (req, res) => {
 router.get("/edit-page/:id", function (req, res) {
   Page.findById(req.params.id, function (err, page) {
     if (err) return console.log(err);
-    console.log(page);
-    console.log(req.body);
     res.render("admin/edit_page", {
       title: page.title,
       slug: page.slug,

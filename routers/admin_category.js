@@ -111,9 +111,7 @@ router.post("/edit-category/:id", function (req, res) {
       { slug: slug, _id: { $ne: id } },
       function (err, category) {
         if (category) {
-          console.log(category);
           req.flash("danger", "category slug exists, choose another.");
-          console.log(req.flash("danger"));
           res.render("admin/edit_category", {
             title: title,
             id: id,
@@ -137,7 +135,6 @@ router.post("/edit-category/:id", function (req, res) {
               });
 
               req.flash("success", "category отредактировна!");
-              console.log(req.flash("success"));
               res.redirect("/admin_category");
             });
           });
