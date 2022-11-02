@@ -1,39 +1,27 @@
 <div class="row mt-5">
-  <div class="col-md-6 m-auto">
-    <div class="card card-body">
-      <h1 class="text-center mb-3"><i class="fas fa-sign-in-alt"></i>  Login</h1>
-      <form action="/users/login" method="POST">
+<h1><%= title %></h1>
 
+<form method="post" action="/users/login">
 
- <div class="form-group">
-                   <label for="email">Email</label>
-                    <input
-                                type="email"
-                                       id="email"
-                                       name="email"
-                                       class="form-control"
-                           placeholder="Enter Email"
-                            value="<%= typeof password != 'undefined' ? password : '' %>"
-                    />
-                </div>
-
-
-                  <div class="form-group">
-                                    <label for="password">Password</label>
-                                    <input
-                                           type="password"
-                                                      id="password"
-                                                      name="password"
-                                                      class="form-control"
-                                                      placeholder="Enter Password"
-                                            value="<%= typeof password2 != 'undefined' ? password2 : '' %>"
-                                    />
-                                </div>
-        <button type="submit" class="btn btn-primary btn-block">Login</button>
-      </form>
-      <p class="lead mt-4">
-        No Account? <a href="/users/register">Register</a>
-      </p>
+    <div class="form-group">
+        <label>Username</label>
+        <input type="text" name="username" class="form-control" placeholder="Username">
     </div>
-  </div>
+
+    <div class="form-group">
+        <label>Password</label>
+        <input type="password" name="password" class="form-control"  placeholder="Password">
+    </div>
+
+    <button type="submit" class="btn btn-default">Log in</button>
+</form>
+
+      <%- messages('messages', locals) %>
+    <% if (errors) {%>
+        <% errors.forEach(function(error) { %>
+        <div class="alert alert-danger">
+            <%= error.msg %>
+        </div>
+        <% });%>
+    <% }%>
 </div>

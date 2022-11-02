@@ -1,21 +1,7 @@
-<h1>Our PAge</h1>
-
-  <ul class="nav navbar-nav">
-                        <% pages.forEach(function(page){ %>
-                        <% if (page.slug == "home") { %>
-                        <li><a href="/"><%= page.title %></a></li>
-                        <% } else {%>
-                        <li><a href="/page/<%= page.slug %>"><%= page.title %></a></li>
-                        <% } %>
-                        <% }); %>
-                    </ul>
-
-                      <div class="col-xs-12 col-md-3">
-                                        <h3>Categories</h3>
-                                        <ul class="list-group">
-                                            <li class="list-group-item"><a href="/products">All products</a></li>
-                                            <% categories.forEach(function(c){ %>
-                                                <li class="list-group-item"><a href="/products/<%= c.slug %>"><%= c.title %></a></li>
-                                            <% }); %>
-                                        </ul>
-                                    </div>
+    <h3>Категории</h3>
+        <ul class="list-group">
+            <li class="list-group-item"><a href="/products">All products</a></li>
+            <% categories.forEach(function(c){ %>
+                <li class="list-group-item"><a href="/products/<%= c.slug %>"><%= c.title %></a></li>
+            <% }); %>
+        </ul>

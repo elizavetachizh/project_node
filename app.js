@@ -6,7 +6,6 @@ const session = require("express-session");
 //Routers
 const homeRouter = require("./routers/index");
 const usersRouter = require("./routers/users");
-const pageRouter = require("./routers/page");
 const adminPageRouter = require("./routers/admin_pages");
 const pagesRouter = require("./routers/pages");
 const categoryRouter = require("./routers/admin_category");
@@ -16,14 +15,22 @@ const productsRouter = require("./routers/products");
 const cardRouter = require("./routers/createCard");
 const path = require("path");
 const mongoose = require("mongoose");
-var passport = require('passport');
-const app = express();
-const MongoStore = require("connect-mongodb-session")(session);
+var passport = require("passport");
 const fileUpload = require("express-fileupload");
 const keys = require("./keys/index");
 var expressValidator = require("express-validator");
 const bodyParser = require("body-parser");
 const Page = require("./models/page");
+const app = express();
+
+//mongo
+mongoose
+  .connect(keys.MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log("MongoDB connected"))
+  .catch((error) => console.log(error));
 
 //EJS
 app.set("views", path.join(__dirname, "views"));
@@ -31,23 +38,35 @@ app.set("view engine", "ejs");
 app.set("layout extractScripts", true);
 app.set("layout extractStyles", true);
 
-const store = new MongoStore({
-  collection: "sessions",
-  uri: keys.MONGODB_URI,
+app.use("/public", express.static("public"));
+
+app.locals.errors = null;
+app.use(expressLayouts);
+
+// Get all pages to pass to header.ejs
+Page.find({})
+  .sort({ sorting: 1 })
+  .exec(function (err, pages) {
+    if (err) {
+      console.log(err);
+    } else {
+      app.locals.pages = pages;
+    }
+  });
+
+// Get Category Model
+var Category = require("./models/category");
+
+// Get all categories to pass to header.ejs
+Category.find(function (err, categories) {
+  if (err) {
+    console.log(err);
+  } else {
+    app.locals.categories = categories;
+  }
 });
 
-app.use(expressLayouts);
-app.locals.errors = null;
-
 app.use(express.urlencoded({ extended: true }));
-app.use(
-  session({
-    secret: keys.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false,
-    store,
-  })
-);
 
 app.use(flash());
 
@@ -61,41 +80,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
 
-// app.use(expressValidator({}));
-app.use("/public", express.static("public"));
-app.use(function (req, res, next) {
-  res.locals.success_msg = req.flash("success_msg");
-  res.locals.error_msg = req.flash("error_msg");
-  res.locals.error = req.flash("error");
-  next();
-});
-
-// Body Parser middleware
-//
-// parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }));
-// parse application/json
-app.use(bodyParser.json());
-
-// Passport Middleware
-app.use(passport.initialize());
-app.use(passport.session());
-
-//mongo
-mongoose
-  .connect(keys.MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
+app.use(
+  session({
+    secret: keys.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
   })
-  .then(() => console.log("MongoDB connected"))
-  .catch((error) => console.log(error));
-
-// Express Messages middleware
-app.use(require("connect-flash")());
-app.use(function (req, res, next) {
-  res.locals.messages = require("express-messages")(req, res);
-  next();
-});
+);
 
 // Express Validator middleware
 app.use(
@@ -134,32 +125,27 @@ app.use(
   })
 );
 
-// Get all pages to pass to header.ejs
-Page.find({})
-  .sort({ sorting: 1 })
-  .exec(function (err, pages) {
-    if (err) {
-      console.log(err);
-    } else {
-      app.locals.pages = pages;
-    }
-  });
+// Express Messages middleware
+app.use(require("connect-flash")());
+app.use(function (req, res, next) {
+  res.locals.messages = require("express-messages")(req, res);
+  next();
+});
 
-// Get Category Model
-var Category = require("./models/category");
+// Passport Config
+require("./config/passport")(passport);
+// Passport Middleware
+app.use(passport.initialize());
+app.use(passport.session());
 
-// Get all categories to pass to header.ejs
-Category.find(function (err, categories) {
-  if (err) {
-    console.log(err);
-  } else {
-    app.locals.categories = categories;
-  }
+app.get("*", function (req, res, next) {
+  res.locals.cart = req.session.cart;
+  res.locals.user = req.user || null;
+  next();
 });
 
 app.use("/", homeRouter);
 app.use("/users", usersRouter);
-app.use("/home", pageRouter);
 app.use("/page", pageSlugRouter);
 app.use("/admin_page", adminPageRouter);
 app.use("/pages", pagesRouter);
