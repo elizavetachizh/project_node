@@ -9,45 +9,39 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     </head>
      <body>
-<main>
-  <h1 class="visually-hidden">Headers examples</h1>
-
-  <div class="container">
-    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
-      <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
-        <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
-      </a>
-
-      <ul class="nav nav-pills">
-                           <% if (user && user.admin == 1) { %>
-                                      <li class="nav-item"><a href="/admin_page/add_page" class="nav-link">Панель администрирования</a></li>
-                                             <li class="nav-item"><a href="/pages" class="nav-link">Страницы</a></li>
-                                             <li class="nav-item"><a href="/admin_category" class="nav-link">Категории</a></li>
-                                             <li class="nav-item"><a href="/admin_products" class="nav-link">Продукты</a></li>
-                                          <% }%>
+  <div >
+    <nav class="navbar navbar-inverse">
+    <div class="container">  <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+                                   <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
+                                 </a>
+ <ul class="nav nav-pills">
+   <% if (user) { %>
+     <% if (user && user.admin == 1) { %>
+     <li class="nav-item"><a href="/admin_page/add_page" class="nav-link">Панель администрирования</a></li>
+      <li class="nav-item"><a href="/admin_page" class="nav-link">Страницы</a></li>
+      <li class="nav-item"><a href="/admin_category" class="nav-link">Категории</a></li>
+      <li class="nav-item"><a href="/admin_products" class="nav-link">Продукты</a></li>
+      <% }%>
  <% if (user && user.admin !== 1) { %>
-                                      <% pages.forEach(function(page){ %>
-                                                                <li class="nav-item"><a  class="nav-link" href="/page/<%= page.slug %>"><%= page.title %></a></li>
-                                                                   <% }); %>
-                                          <% }%>
-        <li class="nav-item"> <a  class="nav-link" href="/cart/checkout">My Cart (
-                                      <% if (typeof cart !== "undefined") { %>
-                                      <%= cart.length %>
-                               <% } else {%>
-                 0
-                 <% } %>
-             )</a></li>
-               <% if (user) { %>
-                     <li  class="nav-item"> <a  class="nav-link" href="/users/logout">Добро пожаловать, <%= user.name %> ( Выйти )</a></li>
-                       <% } else {%>
-                   <li class="nav-item"> <a  class="nav-link" href="/users/register">Регистрация</a></li>
-                 <li class="nav-item"> <a  class="nav-link" href="/users/login">Войти</a></li>
-                    <% } %>
-      </ul>
-
-    </header>
+  <% pages.forEach(function(page){ %>
+    <li class="nav-item"><a  class="nav-link" href="/page/<%= page.slug %>"><%= page.title %></a></li>
+  <% }); %>
+  <% }%>
+  <% } %>
+     <li class="nav-item"> <a  class="nav-link" href="/cart/checkout">Добавленые карточки (
+       <% if (typeof cart !== "undefined") { %>
+           <%= cart.length %>
+             <% } else {%>
+                0
+              <% } %>
+           )</a></li>
+           <% if (user) { %>
+           <li  class="nav-item"> <a  class="nav-link" href="/users/logout">Добро пожаловать, <%= user.username %> ( Выйти )</a></li>
+          <% } else {%>
+           <li class="nav-item"> <a  class="nav-link" href="/users/register">Регистрация</a></li>
+            <li class="nav-item"> <a  class="nav-link" href="/users/login">Войти</a></li>
+            <% } %>
+         </ul></div>
+    </nav>
   </div>
-  <div class="b-example-divider"></div>
-  <%- include('./page') -%>
-</main>
 

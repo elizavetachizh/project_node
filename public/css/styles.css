@@ -1,12 +1,20 @@
 section {
-    width: 90%;
-    margin:  0 auto !important;
+  width: 90%;
+  margin: 0 auto !important;
 }
 button.btn {
-    border: 1px solid red;
-    color: black
+  border: 1px solid red;
+  color: black;
 }
 button.btn:hover {
-    border: 1px solid red;
-    color: black
+  border: 1px solid red;
+  color: black;
+}
+
+img.pimage {
+  width: 100px;
+}
+div.row {
+  margin-right: 0;
+  margin-left: 0;
 }

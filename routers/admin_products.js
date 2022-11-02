@@ -2,17 +2,17 @@ const express = require("express");
 const router = express.Router();
 const Products = require("../models/products");
 const Category = require("../models/category");
-const mkdirp = require("mkdirp");
+const auth = require("../config/auth");
+const isAdmin = auth.isAdmin;
 const fs = require("fs-extra");
-router.get("/", (req, res) => {
+router.get("/", isAdmin, function (req, res) {
   var count;
-
   Products.count(function (err, c) {
     count = c;
   });
-  console.log(count)
+
   Products.find(function (err, products) {
-    console.log(count)
+    console.log(count);
     res.render("admin/admin_products", {
       products: products,
       count: count,
@@ -23,7 +23,7 @@ router.get("/", (req, res) => {
 /*
  * GET add product
  */
-router.get("/add-product", function (req, res) {
+router.get("/add-product", isAdmin, function (req, res) {
   var title = "";
   var desc = "";
   var price = "";
@@ -117,36 +117,29 @@ router.post("/add-product", (req, res) => {
 /*
  * GET edit product
  */
-router.get("/edit-product/:id", function (req, res) {
+router.get("/edit-product/:id", isAdmin, function (req, res) {
   var errors;
   if (req.session.errors) errors = req.session.errors;
   req.session.errors = null;
   Category.find(function (err, categories) {
     Products.findById(req.params.id, function (err, product) {
       if (err) {
+        console.log(err);
         res.render("admin/admin_products");
-        return console.log(err);
-      } else {
-        var galleryDir = "public/product_images/" + product._id + "/gallery";
-        var galleryImages = null;
 
-        fs.readdir(galleryDir, function (err, files) {
-          if (err) {
-            console.log(err);
-          } else {
-            galleryImages = files;
+      } else {
+
             res.render("admin/edit_products", {
               errors: errors,
               title: product.title,
               desc: product.desc,
               category: product.category.replace(/\s+/g, "-").toLowerCase(),
               categories: categories,
-              price: product.price,
-              image: product.imageFile,
+              price: parseFloat(product.price).toFixed(2),
+              image: product.image,
               id: product._id,
             });
-          }
-        });
+
       }
     });
   });
@@ -178,16 +171,16 @@ router.post("/edit-product/:id", function (req, res) {
 
   if (errors) {
     req.session.errors = errors;
-    res.redirect("/admin/edit_products" + id);
+    res.redirect("/admin_products/edit-product/" + id);
   } else {
     Products.findOne({ slug: slug, _id: { $ne: id } }, function (err, product) {
       if (err) {
         console.log(err);
       }
       if (product) {
-        res.redirect("/admin/edit_products" + id);
+        res.redirect("/admin_products/edit-product/" + id);
       } else {
-        Products.findById(req.params.id, function (err, product) {
+        Products.findById(id, function (err, product) {
           if (err) return console.log(err);
           product.title = title;
           product.slug = slug;
@@ -204,7 +197,7 @@ router.post("/edit-product/:id", function (req, res) {
             if (imageFile !== "") {
               if (image !== "") {
                 fs.remove(
-                  "public/product_images/" + id + "/" + image,
+                  "public/product_images" + "/" + image,
                   function (err) {
                     if (err) console.log(err);
                   }
@@ -212,7 +205,7 @@ router.post("/edit-product/:id", function (req, res) {
               }
 
               var productImage = req.files.image;
-              var path = "public/product_images/" + id + "/" + imageFile;
+              var path = "public/product_images/" + imageFile;
 
               productImage.mv(path, function (err) {
                 return console.log(err);
@@ -222,7 +215,7 @@ router.post("/edit-product/:id", function (req, res) {
             req.flash("success", "продукция отредактировна!");
             console.log(req.flash("success"));
 
-            res.redirect("/admin_products/");
+            res.redirect("/admin_products/edit-product/" + id);
           });
         });
       }
@@ -233,7 +226,7 @@ router.post("/edit-product/:id", function (req, res) {
 /*
  * GET delete image
  */
-router.get("/delete-image/:image", function (req, res) {
+router.get("/delete-image/:image", isAdmin, function (req, res) {
   var originalImage =
     "public/product_images/" + req.query.id + "/gallery/" + req.params.image;
   var thumbImage =
@@ -261,8 +254,9 @@ router.get("/delete-image/:image", function (req, res) {
 /*
  * GET delete product
  */
-router.get("/delete-product/:id", function (req, res) {
-  Products.findByIdAndRemove(req.params.id, function (err) {
+router.get("/delete-product/:id", isAdmin, function (req, res) {
+  var id = req.params.id;
+  Products.findByIdAndRemove(id, function (err) {
     if (err) return console.log(err);
 
     req.flash("success", "Page deleted!");

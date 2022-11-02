@@ -13,10 +13,10 @@
         <input type="password" name="password" class="form-control"  placeholder="Password">
     </div>
 
-    <button type="submit" class="btn btn-default">Log in</button>
+    <button type="submit" class="btn btn-default">Вход</button>
+    <div><a href="/users/register">Регистрация</a></div>
 </form>
 
-      <%- messages('messages', locals) %>
     <% if (errors) {%>
         <% errors.forEach(function(error) { %>
         <div class="alert alert-danger">

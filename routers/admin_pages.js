@@ -1,7 +1,19 @@
 const express = require("express");
 const router = express.Router();
 const Page = require("../models/page");
-router.get("/add_page", (req, res) => {
+const auth = require("../config/auth");
+const isAdmin = auth.isAdmin;
+
+router.get("/", isAdmin, function (req, res) {
+  Page.find({})
+    .sort({ sorting: 1 })
+    .exec(function (err, pages) {
+      res.render("admin/pages", {
+        pages: pages,
+      });
+    });
+});
+router.get("/add_page", isAdmin, function (req, res) {
   var title = "";
   var slug = "";
   var content = "";
@@ -11,6 +23,7 @@ router.get("/add_page", (req, res) => {
     content: content,
   });
 });
+
 router.post("/add_page", (req, res) => {
   req.checkBody("title", "Заголовок должен быть заполненым").notEmpty();
   req.checkBody("content", "Контент должен быть заполненым").notEmpty();
@@ -72,7 +85,7 @@ router.post("/add_page", (req, res) => {
         });
 
         req.flash("success", "Страница добавлена");
-        res.redirect("/pages");
+        res.redirect("/admin_page");
       }
     });
   }
@@ -81,7 +94,7 @@ router.post("/add_page", (req, res) => {
 /*
  * GET edit page
  */
-router.get("/edit-page/:id", function (req, res) {
+router.get("/edit-page/:id", isAdmin, function (req, res) {
   Page.findById(req.params.id, function (err, page) {
     if (err) return console.log(err);
     res.render("admin/edit_page", {
@@ -134,7 +147,7 @@ router.post("/edit-page/:id", function (req, res) {
           id: id,
         });
       } else {
-        Page.findById(req.params.id, function (err, page) {
+        Page.findById(id, function (err, page) {
           if (err) return console.log(err);
           console.log(page);
           page.title = title;
@@ -144,6 +157,17 @@ router.post("/edit-page/:id", function (req, res) {
           page.save(function (err) {
             if (err) return console.log(err);
             console.log(page.id);
+
+            Page.find({})
+              .sort({ sorting: 1 })
+              .exec(function (err, pages) {
+                if (err) {
+                  console.log(err);
+                } else {
+                  req.app.locals.pages = pages;
+                }
+              });
+
             req.flash("success", "Страница отредактировна!");
             console.log(req.flash("success"));
             res.redirect("/admin_page/edit-page/" + page.id);
@@ -157,7 +181,7 @@ router.post("/edit-page/:id", function (req, res) {
 /*
  * GET delete page
  */
-router.get("/delete-page/:id", function (req, res) {
+router.get("/delete-page/:id", isAdmin, function (req, res) {
   Page.findByIdAndRemove(req.params.id, function (err) {
     if (err) return console.log(err);
 
@@ -172,7 +196,7 @@ router.get("/delete-page/:id", function (req, res) {
       });
 
     req.flash("success", "Page deleted!");
-    res.redirect("/pages/");
+    res.redirect("/admin_page/");
   });
 });
 

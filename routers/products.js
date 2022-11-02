@@ -2,7 +2,9 @@ const express = require("express");
 const router = express.Router();
 const Products = require("../models/products");
 const Category = require("../models/category");
-router.get("/", (req, res) => {
+const auth = require("../config/auth");
+const isUser = auth.isUser;
+router.get("/", isUser, function (req, res) {
   Products.find(function (err, products) {
     if (err) console.log(err);
 
@@ -13,7 +15,7 @@ router.get("/", (req, res) => {
   });
 });
 
-router.get("/:category", (req, res) => {
+router.get("/:category", isUser, function (req, res) {
   const categorySlug = req.params.category;
   Category.findOne({ slug: categorySlug }, function (err, category) {
     Products.find({ category: categorySlug }, function (err, products) {
@@ -32,8 +34,8 @@ router.get("/:category", (req, res) => {
  */
 router.get("/:category/:product", function (req, res) {
   var galleryImages = null;
-  var loggedIn = (req.isAuthenticated()) ? true : false;
-  console.log(loggedIn)
+  var loggedIn = !!req.isAuthenticated();
+  console.log(loggedIn);
   Products.findOne({ slug: req.params.product }, function (err, product) {
     if (err) {
       console.log(err);
@@ -42,7 +44,7 @@ router.get("/:category/:product", function (req, res) {
         title: product.title,
         p: product,
         galleryImages: galleryImages,
-        loggedIn: loggedIn
+        loggedIn: loggedIn,
       });
     }
   });

@@ -70,6 +70,7 @@ router.post("/register", function (req, res) {
           });
         });
       }
+      console.log(user)
     });
   }
 });
@@ -82,6 +83,7 @@ router.get("/login", function (req, res) {
   res.render("login", {
     title: "Log in",
   });
+  console.log(res.locals.user)
 });
 
 /*
@@ -95,6 +97,7 @@ router.post("/login", function (req, res, next) {
     failureRedirect: "/users/login",
     failureFlash: true,
   })(req, res, next);
+  console.log(res.locals.user)
 });
 
 /*

@@ -1,5 +1,5 @@
 <h2>Создание страницы</h2>
-<div><a href="/pages" class="btn btn-primary">Перейти к списку всех страниц</a></div>
+<div><a href="/admin_page" class="btn btn-primary">Перейти к списку всех страниц</a></div>
 </br>
 <form method="post" action="/admin_page/add_page">
 
@@ -19,8 +19,6 @@
     </div>
 
     <button class="btn">Создать</button>
-
-   <%= ("../partials/messagesAdmin", locals) %>
 
     <% if (errors) {%>
         <% errors.forEach(function(error) { %>
