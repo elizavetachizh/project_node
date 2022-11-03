@@ -31,8 +31,7 @@ router.get("/add/:product", function (req, res) {
           break;
         }
       }
-      console.log(cart.length);
-      console.log(typeof cart);
+
       if (newItem) {
         cart.push({
           title: slug,

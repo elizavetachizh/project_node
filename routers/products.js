@@ -35,7 +35,6 @@ router.get("/:category", isUser, function (req, res) {
 router.get("/:category/:product", function (req, res) {
   var galleryImages = null;
   var loggedIn = !!req.isAuthenticated();
-  console.log(loggedIn);
   Products.findOne({ slug: req.params.product }, function (err, product) {
     if (err) {
       console.log(err);

@@ -12,7 +12,7 @@ router.get("/", isAdmin, function (req, res) {
   });
 
   Products.find(function (err, products) {
-    console.log(count);
+
     res.render("admin/admin_products", {
       products: products,
       count: count,
@@ -213,7 +213,6 @@ router.post("/edit-product/:id", function (req, res) {
             }
 
             req.flash("success", "продукция отредактировна!");
-            console.log(req.flash("success"));
 
             res.redirect("/admin_products/edit-product/" + id);
           });

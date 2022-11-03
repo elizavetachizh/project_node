@@ -46,7 +46,6 @@ router.post("/add_category", (req, res) => {
           "danger",
           "Данная категория была создана ранее, попробуйте создать новую"
         );
-        console.log(req.flash("danger"));
         res.render("admin/add_category", {
           title: title,
           slug: slug,

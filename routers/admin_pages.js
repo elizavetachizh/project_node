@@ -139,7 +139,6 @@ router.post("/edit-page/:id", function (req, res) {
             "Данная страницы была создана ранее, попробуйте создать новую"
           )
           .notEmpty();
-        console.log(req.flash("slug"));
         res.render("admin/edit_page", {
           title: title,
           slug: slug,
@@ -149,14 +148,13 @@ router.post("/edit-page/:id", function (req, res) {
       } else {
         Page.findById(id, function (err, page) {
           if (err) return console.log(err);
-          console.log(page);
+
           page.title = title;
           page.slug = slug;
           page.content = content;
 
           page.save(function (err) {
             if (err) return console.log(err);
-            console.log(page.id);
 
             Page.find({})
               .sort({ sorting: 1 })
@@ -169,7 +167,7 @@ router.post("/edit-page/:id", function (req, res) {
               });
 
             req.flash("success", "Страница отредактировна!");
-            console.log(req.flash("success"));
+
             res.redirect("/admin_page/edit-page/" + page.id);
           });
         });
