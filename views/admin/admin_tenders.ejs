@@ -1,0 +1,27 @@
+<h2 class="page-title">Посты</h2>
+<a href="/admin_tenders/add-tender" class="btn btn-primary">Добавить новый пост</a>
+<br><br>
+<% if (count > 0) { %>
+<table class="table table-striped sorting">
+
+    <thead>
+      <tr class="home">
+                  <th>id</th>
+                  <th>Edit</th>
+                  <th>Delete</th>
+              </tr>
+    </thead>
+     <tbody>
+            <% tenders.forEach(function(tender){ %>
+            <tr>
+                <td><%= tender.id %></td>
+
+                <td><a href="/admin_tenders/edit-tender/<%= tender._id %>">Edit</a></td>
+                <td><a class="confirmDeletion" href="/admin_tenders/delete-tender/<%= tender._id %>">Delete</a></td>
+            </tr>
+            <% }); %>
+        </tbody>
+</table>
+<% } else {%>
+<h3 class="text-center">Нет ни одного созданного поста</h3>
+<% }%>

@@ -5,18 +5,15 @@ const router = express.Router();
 /*
  * GET /
  */
-router.get('/', function (req, res) {
+router.get("/", function (req, res) {
+  Page.findOne({ slug: "home" }, function (err, page) {
+    if (err) console.log(err);
 
-  Page.findOne({slug: 'home'}, function (err, page) {
-    if (err)
-      console.log(err);
-
-    res.render('index', {
+    res.render("index", {
       title: page.title,
-      content: page.content
+      content: page.content,
     });
   });
-
 });
 
 router.get("/:slug", function (req, res) {
@@ -27,10 +24,12 @@ router.get("/:slug", function (req, res) {
     if (!page) {
       res.redirect("/");
     } else {
-      res.render("index", {
-        title: page.title,
-        content: page.content,
-      });
+      // res.render("index", {
+      //   title: page.title,
+      //   content: page.content,
+      // });
+      res.send(page);
+      console.log(page);
     }
   });
 });

@@ -1,0 +1,27 @@
+<h2 class="page-title">Посты</h2>
+<a href="/admin_departament/add-departament" class="btn btn-primary">Добавить новый departament</a>
+<br><br>
+<% if (count > 0) { %>
+<table class="table table-striped sorting">
+
+    <thead>
+      <tr class="home">
+                  <th>name</th>
+                  <th>Edit</th>
+                  <th>Delete</th>
+              </tr>
+    </thead>
+     <tbody>
+            <% departament.forEach(function(el){ %>
+            <tr>
+                <td><%= el.name %></td>
+
+                <td><a href="/admin_departament/edit-departament/<%= el._id %>">Edit</a></td>
+                <td><a class="confirmDeletion" href="/admin_departament/delete-departament/<%= el._id %>">Delete</a></td>
+            </tr>
+            <% }); %>
+        </tbody>
+</table>
+<% } else {%>
+<h3 class="text-center">Нет ни одного созданного departament</h3>
+<% }%>

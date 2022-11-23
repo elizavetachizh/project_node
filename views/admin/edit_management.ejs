@@ -1,0 +1,78 @@
+<h2 class="page-title">Редактировани данных человека</h2>
+<a href="/admin_management" class="btn btn-primary">Назад</a>
+<br><br>
+
+<form method="post" action="/admin_management/edit-men/<%= id %>" enctype="multipart/form-data">
+
+    <div class="form-group">
+        <label for="">fullName</label>
+        <input type="text" class="form-control" name="fullName" value="<%= fullName %>" placeholder="fullName">
+    </div>
+
+ <div class="form-group">
+        <label for="">position</label>
+        <input type="text" class="form-control" name="position" value="<%= position %>" placeholder="position">
+    </div>
+
+    <div class="form-group">
+           <label for="">name</label>
+           <input type="text" class="form-control" name="name" value="<%= name %>" placeholder="name">
+       </div>
+
+    <div class="form-group">
+        <label for="">Current Image</label>
+        <p>
+            <% if (image == "") { %>
+            <img id="noimage" src="/images/noimage.png" alt="">
+            <% } else {%>
+            <img id="noimage" src="/product_images/<%= image %>" alt="">
+            <% } %>
+        </p>
+    </div>
+
+    <div class="form-group">
+        <label for="">Upload Image</label>
+        <input type="file" class="form-control" name="image" id="img">
+        <img src="#" id="imgPreview" alt="">
+    </div>
+
+    <input type="hidden" name="pimage" value="<%= image %>">
+    <button class="btn btn-default">Submit</button>
+</form>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.1.1/basic.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.1.1/dropzone.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.1.1/dropzone.js"></script>
+<script>
+
+    // Preview image
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                $("#imgPreview").attr('src', e.target.result).width(100).height(100);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#img").change(function() {
+        readURL(this);
+    });
+
+    // Dropzone
+    Dropzone.options.dropzoneForm = {
+        acceptedFiles: "image/*",
+        init: function() {
+            this.on("queuecomplete", function(file) {
+               setTimeout(function() {
+                location.reload()
+                }, 1000);
+            });
+        }
+    }
+
+</script>

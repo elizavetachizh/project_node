@@ -1,0 +1,23 @@
+<h2 class="page-title">Редактирование поста</h2>
+<a href="/admin_posts" class="btn btn-primary">Назад ко всем постам</a>
+<br><br>
+
+<form method="post" action="/admin_posts/edit-post/<%= id %>" enctype="multipart/form-data">
+
+    <div class="form-group">
+        <label for="">Ссылка</label>
+        <input type="text" class="form-control" name="link" value="<%= link %>" placeholder="Ссылка">
+    </div>
+
+    <div class="form-group">
+        <label for="">Описание</label>
+         <input type="text" class="form-control" name="content" value="<%= content %>" placeholder="Описание">
+    </div>
+
+          <div class="form-group">
+               <label for="">Измените ссылку на картинку </label>
+              <input type="text" class="form-control" name="image" id="img" value="<%= image %>">
+          </div>
+
+    <button class="btn btn-default">Submit</button>
+</form>

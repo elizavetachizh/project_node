@@ -21,6 +21,10 @@
       <li class="nav-item"><a href="/admin_page" class="nav-link">Страницы</a></li>
       <li class="nav-item"><a href="/admin_category" class="nav-link">Категории</a></li>
       <li class="nav-item"><a href="/admin_products" class="nav-link">Продукты</a></li>
+        <li class="nav-item"><a href="/admin_posts" class="nav-link">Посты</a></li>
+             <li class="nav-item"><a href="/admin_departament" class="nav-link">Отделы</a></li>
+             <li class="nav-item"><a href="/admin_management" class="nav-link">Руководоство</a></li>
+                          <li class="nav-item"><a href="/admin_tenders" class="nav-link">Тендеры</a></li>
       <% }%>
  <% if (user && user.admin !== 1) { %>
   <% pages.forEach(function(page){ %>
@@ -35,6 +39,8 @@
                 0
               <% } %>
            )</a></li>
+             <li class="nav-item"><a href="/posts" class="nav-link">Посты</a></li>
+                       <li class="nav-item"><a href="/tenders" class="nav-link">Тендеры</a></li>
            <% if (user) { %>
            <li  class="nav-item"> <a  class="nav-link" href="/users/logout">Добро пожаловать, <%= user.username %> ( Выйти )</a></li>
           <% } else {%>

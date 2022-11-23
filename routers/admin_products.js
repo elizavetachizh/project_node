@@ -12,7 +12,6 @@ router.get("/", isAdmin, function (req, res) {
   });
 
   Products.find(function (err, products) {
-
     res.render("admin/admin_products", {
       products: products,
       count: count,
@@ -126,20 +125,17 @@ router.get("/edit-product/:id", isAdmin, function (req, res) {
       if (err) {
         console.log(err);
         res.render("admin/admin_products");
-
       } else {
-
-            res.render("admin/edit_products", {
-              errors: errors,
-              title: product.title,
-              desc: product.desc,
-              category: product.category.replace(/\s+/g, "-").toLowerCase(),
-              categories: categories,
-              price: parseFloat(product.price).toFixed(2),
-              image: product.image,
-              id: product._id,
-            });
-
+        res.render("admin/edit_products", {
+          errors: errors,
+          title: product.title,
+          desc: product.desc,
+          category: product.category.replace(/\s+/g, "-").toLowerCase(),
+          categories: categories,
+          price: parseFloat(product.price).toFixed(2),
+          image: product.image,
+          id: product._id,
+        });
       }
     });
   });

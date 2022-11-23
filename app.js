@@ -4,6 +4,7 @@ const expressLayouts = require("express-ejs-layouts");
 const flash = require("connect-flash");
 const session = require("express-session");
 //Routers
+const postsAdminRouter = require("./routers/admin_posts");
 const homeRouter = require("./routers/index");
 const usersRouter = require("./routers/users");
 const adminPageRouter = require("./routers/admin_pages");
@@ -12,6 +13,13 @@ const productsAdminRouter = require("./routers/admin_products");
 const pageSlugRouter = require("./routers/pageSlug");
 const productsRouter = require("./routers/products");
 const cardRouter = require("./routers/createCard");
+const postsRouter = require("./routers/posts");
+const managementAdminRouter = require("./routers/admin_management");
+const departamentAdminRouter = require("./routers/departaments");
+const tendersAdminRouter = require("./routers/admin_tenders");
+const tendersRouter = require("./routers/tenders");
+const mainArticleAdminRouter = require("./routers/admin_mainArticle");
+
 const path = require("path");
 const mongoose = require("mongoose");
 var passport = require("passport");
@@ -21,6 +29,9 @@ var expressValidator = require("express-validator");
 const bodyParser = require("body-parser");
 const Page = require("./models/page");
 const app = express();
+
+var cors = require("cors");
+app.use(cors());
 
 //mongo
 mongoose
@@ -147,9 +158,16 @@ app.use("/", homeRouter);
 app.use("/users", usersRouter);
 app.use("/page", pageSlugRouter);
 app.use("/admin_page", adminPageRouter);
+app.use("/admin_posts", postsAdminRouter);
+app.use("/posts", postsRouter);
+app.use("/tenders", tendersRouter);
+app.use("/admin_management", managementAdminRouter);
+app.use("/admin_tenders", tendersAdminRouter);
+app.use("/admin_departament", departamentAdminRouter);
 app.use("/admin_category", categoryRouter);
 app.use("/admin_products", productsAdminRouter);
 app.use("/products", productsRouter);
 app.use("/cart", cardRouter);
+app.use("/admin_article", mainArticleAdminRouter);
 
 app.listen(PORT);

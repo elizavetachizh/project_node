@@ -45,6 +45,7 @@ router.post("/register", function (req, res) {
       if (user) {
         req.flash("danger", "Username exists, choose another!");
         res.redirect("/users/register");
+        console.log(user);
       } else {
         var user = new User({
           name: name,
@@ -109,8 +110,6 @@ router.get("/logout", function (req, res, next) {
     res.redirect("/users/login");
   });
 });
-
-
 
 // Exports
 module.exports = router;

@@ -1,0 +1,22 @@
+<h2 class="page-title">Добавить пост</h2>
+<br><br>
+<a href="/admin_posts" class="btn btn-primary">Показать все посты</a>
+<br><br>
+
+<form method="post" action="/admin_departament/add-departament/" enctype="multipart/form-data">
+
+    <div class="form-group">
+        <label for="">name</label>
+        <input type="text" class="form-control" name="name" value="<%= name %>" placeholder="name">
+    </div>
+
+    <button class="btn btn-default">Добавить</button>
+
+          <% if (errors) {%>
+              <% errors.forEach(function(error) { %>
+              <div class="alert alert-danger">
+                  <%= error.msg %>
+              </div>
+              <% });%>
+          <% }%>
+</form>

@@ -132,7 +132,6 @@ router.post("/edit-page/:id", function (req, res) {
   } else {
     Page.findOne({ slug: slug, _id: { $ne: id } }, function (err, page) {
       if (page) {
-        console.log(page);
         req
           .checkBody(
             "slug",

@@ -1,0 +1,51 @@
+
+<h2 class="page-title">Управление</h2>
+<a href="/admin_management/add-men" class="btn btn-primary">Добавить нового человека</a>
+<br><br>
+
+<table class="table table-striped sorting">
+
+    <thead>
+      <tr class="home">
+                  <th>fullName</th>
+                  <th>position</th>
+                  <th>name</th>
+                         <th>departaments</th>
+                  <th>Image</th>
+                  <th>Edit</th>
+                  <th>Delete</th>
+              </tr>
+    </thead>
+     <tbody>
+            <% management.forEach(function(men){ %>
+            <tr>
+                <td><%= men.fullName %></td>
+                <td><%= men.position %></td>
+
+ <td>
+  <% men.name.forEach(function(e){ %>
+<p> <%= e %></p></br>
+   <% });%>
+   </td>
+    <td>
+  <% men.department.forEach(function(e){ %>
+  <p><%= e %></p>
+   <% });%>
+    </td>
+
+                <td>
+                    <% if (men.image == "") { %>
+                    <img id="noimage" src="/images/noimage.png">
+                    <% } else {%>
+                    <img id="noimage" src="/public/images/<%= men.image %>">
+                    <% }%>
+                </td>
+                <td><a href="/admin_management/edit-men/<%= men._id %>">Edit</a></td>
+                <td><a class="confirmDeletion" href="/admin_management/delete-men/<%= men._id %>">Delete</a></td>
+            </tr>
+            <% }); %>
+        </tbody>
+</table>
+
+
+<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
