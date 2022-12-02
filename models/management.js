@@ -9,15 +9,15 @@ const ManagementSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  cardImg: {
+  image: {
     type: String,
   },
-  name: {
-      type: [{}]
+  idDepartment: {
+    type: [],
   },
-    department: {
-        type: [Object]
-    },
+  department: {
+    type: [],
+  },
 });
 
 const Management = mongoose.model("Management", ManagementSchema);

@@ -4,7 +4,19 @@ const DepartamentsSchema = new mongoose.Schema({
   name: {
     type: String,
   },
-  idMen: {
+  nameMen: {
+    type: String,
+  },
+  chief: {
+    type: String,
+  },
+  description: {
+    type: String,
+  },
+  schedule: {
+    type: String,
+  },
+  contacts: {
     type: String,
   },
 });

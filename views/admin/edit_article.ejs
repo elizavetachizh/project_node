@@ -1,0 +1,19 @@
+<h2 class="page-title">Edit product</h2>
+<a href="/admin_products" class="btn btn-primary">Назад ко всем продуктам</a>
+<br><br>
+
+<form method="post" action="/admin_article/edit-article/<%= id %>" enctype="multipart/form-data">
+
+    <div class="form-group">
+        <label for="">content</label>
+        <input type="text" class="form-control" name="content" value="<%= content %>" placeholder="content">
+    </div>
+
+     <div class="form-group">
+               <label for="">Измените ссылку на картинку </label>
+              <input type="text" class="form-control" name="image" id="img" value="<%= image %>">
+          </div>
+
+    <button class="btn btn-default">Submit</button>
+</form>
+

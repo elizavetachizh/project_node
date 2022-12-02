@@ -1,0 +1,41 @@
+
+<h2 class="page-title">Статьи</h2>
+<a href="/admin_article/add-article" class="btn btn-primary">Добавить новую статью</a>
+<br><br>
+<% if (count > 0) { %>
+<table class="table table-striped sorting">
+
+    <thead>
+      <tr class="home">
+
+                  <th>ID</th>
+                  <th>Content</th>
+                  <th>Image</th>
+                  <th>Edit</th>
+                  <th>Delete</th>
+              </tr>
+    </thead>
+     <tbody>
+            <% articles.forEach(function(article){ %>
+            <tr>
+                <td><%= article.id %></td>
+                <td><%= article.content %></td>
+
+                <td>
+                    <% if (article.image == "") { %>
+                    <img class='img' id="noimage" src="/images/noimage.png">
+                    <% } else {%>
+                    <img class='img' id="noimage" src="<%= article.image %>">
+                    <% }%>
+                </td>
+                <td><a href="/admin_article/edit-article/<%= article._id %>">Edit</a></td>
+                <td><a class="confirmDeletion" href="/admin_article/delete-article/<%= article._id %>">Delete</a></td>
+            </tr>
+            <% }); %>
+        </tbody>
+</table>
+<% } else {%>
+<h3 class="text-center">Нет ни одного созданного продукта</h3>
+<% }%>
+
+<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>

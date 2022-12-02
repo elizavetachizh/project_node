@@ -9,7 +9,6 @@
       <tr class="home">
                   <th>fullName</th>
                   <th>position</th>
-                  <th>name</th>
                          <th>departaments</th>
                   <th>Image</th>
                   <th>Edit</th>
@@ -22,22 +21,19 @@
                 <td><%= men.fullName %></td>
                 <td><%= men.position %></td>
 
- <td>
-  <% men.name.forEach(function(e){ %>
-<p> <%= e %></p></br>
-   <% });%>
-   </td>
     <td>
   <% men.department.forEach(function(e){ %>
+
   <p><%= e %></p>
+
    <% });%>
     </td>
 
                 <td>
                     <% if (men.image == "") { %>
-                    <img id="noimage" src="/images/noimage.png">
+                    <img class='img' id="noimage" src="/images/noimage.png">
                     <% } else {%>
-                    <img id="noimage" src="/public/images/<%= men.image %>">
+                    <img class='img' id="noimage" src="<%= men.image %>">
                     <% }%>
                 </td>
                 <td><a href="/admin_management/edit-men/<%= men._id %>">Edit</a></td>

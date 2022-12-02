@@ -1,0 +1,26 @@
+<h2 class="page-title">Edit product</h2>
+<a href="/admin_services" class="btn btn-primary">Назад ко всем услугам</a>
+<br><br>
+
+<form method="post" action="/admin_services/edit-services/<%= id %>" enctype="multipart/form-data">
+
+    <div class="form-group">
+        <label for="">name</label>
+        <input type="text" class="form-control" name="name" value="<%= name %>" placeholder="name">
+    </div>
+
+    <div class="form-group">
+        <label for="">image</label>
+        <input type="text" class="form-control" name="image" value="<%= image %>" placeholder="image">
+    </div>
+
+
+    <div class="form-group">
+        <label for="">description</label>
+        <input type="text" class="form-control" name="description" value="<%= description %>" placeholder="description">
+    </div>
+
+    <button class="btn btn-default">Submit</button>
+</form>
+
+

@@ -1,0 +1,31 @@
+<h2 class="page-title">Посты</h2>
+<a href="/admin_services/add-services" class="btn btn-primary">Добавить новую услугу</a>
+<br><br>
+
+<table class="table table-striped sorting">
+
+    <thead>
+      <tr class="home">
+                  <th>image</th>
+                  <th>name</th>
+                  <th>description</th>
+                  <th>Edit</th>
+                  <th>Delete</th>
+              </tr>
+    </thead>
+     <tbody>
+            <% services.forEach(function(service){ %>
+            <tr>
+                <td><%= service.image %></td>
+  <td><%= service.name %></td>
+  <td>  <% service.description.forEach(function(el){ %> <p><%= el %></p> <% }); %></td>
+<!--  <td><%= service.description %></td> -->
+
+                <td><a href="/admin_services/edit-services/<%= service._id %>">Edit</a></td>
+                <td><a class="confirmDeletion" href="/admin_services/delete-services/<%= service._id %>">Delete</a></td>
+            </tr>
+            <% }); %>
+        </tbody>
+</table>
+
+

@@ -7,6 +7,11 @@
     <thead>
       <tr class="home">
                   <th>name</th>
+                  <th>chief</th>
+                  <th>description</th>
+                  <th>schedule</th>
+                  <th>contacts</th>
+                  <th>nameMen</th>
                   <th>Edit</th>
                   <th>Delete</th>
               </tr>
@@ -15,7 +20,11 @@
             <% departament.forEach(function(el){ %>
             <tr>
                 <td><%= el.name %></td>
-
+                 <td><%= el.chief %></td>
+                 <td><%= el.description %></td>
+                 <td><%= el.schedule %></td>
+                 <td><%= el.contacts %></td>
+                <td><%= el.nameMen %></td>
                 <td><a href="/admin_departament/edit-departament/<%= el._id %>">Edit</a></td>
                 <td><a class="confirmDeletion" href="/admin_departament/delete-departament/<%= el._id %>">Delete</a></td>
             </tr>

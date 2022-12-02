@@ -1,0 +1,10 @@
+<div class="row products">
+
+    <% articles.forEach(function(article){ %>
+            <div class="col-xs-12 col-md-4 p">
+                  <h3><%= article.content %></h3>
+                  <img class="pimage" src="/public/images/<%= article.image %>" alt="">
+            </div>
+        <% }); %>
+
+</div>

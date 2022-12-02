@@ -1,0 +1,28 @@
+<h2 class="page-title">Добавить статью</h2>
+<br><br>
+<a href="/admin_article" class="btn btn-primary">Показать все статьи</a>
+<br><br>
+
+<form method="post" action="/admin_article/add-article" enctype="multipart/form-data">
+
+    <div class="form-group">
+        <label for="">content</label>
+        <input type="text" class="form-control" name="content" value="<%= content %>" placeholder="content">
+    </div>
+
+   <div class="form-group">
+          <label for="">Картинка</label>
+          <input type="text" class="form-control" name="image" id="img" value="<%= image %>">
+
+      </div>
+
+    <button class="btn btn-default">Добавить</button>
+
+          <% if (errors) {%>
+              <% errors.forEach(function(error) { %>
+              <div class="alert alert-danger">
+                  <%= error.msg %>
+              </div>
+              <% });%>
+          <% }%>
+</form>

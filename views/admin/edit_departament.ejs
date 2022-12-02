@@ -1,0 +1,43 @@
+<h2 class="page-title">Редактировани данных человека</h2>
+<a href="/admin_departament" class="btn btn-primary">Назад</a>
+<br><br>
+
+<form method="post" action="/admin_departament/edit-departament/<%= id %>" enctype="multipart/form-data">
+    <div class="form-group">
+           <label for="">name</label>
+           <input type="text" class="form-control" name="name" value="<%= name %>" placeholder="name">
+       </div>
+
+         <div class="form-group">
+                   <label for="">chief</label>
+                   <input type="text" class="form-control" name="chief" value="<%= chief %>" placeholder="chief">
+               </div>
+
+
+               <div class="form-group">
+                       <label for="">description</label>
+                       <textarea name="description" class="form-control" id="ta" cols="30" rows="10" placeholder="description"><%= description %></textarea>
+                   </div>
+
+
+           <div class="form-group">
+                   <label for="">schedule</label>
+                   <textarea name="schedule" class="form-control" id="ta" cols="30" rows="10" placeholder="schedule"><%= schedule %></textarea>
+               </div>
+
+                   <div class="form-group">
+                           <label for="">contacts</label>
+                           <textarea name="contacts" class="form-control" id="ta" cols="30" rows="10" placeholder="contacts"><%= contacts %></textarea>
+                       </div>
+
+                                  <div class="form-group">
+                                                         <label for="">nameMen</label>
+                       <ul class="list-without-dots">
+                                                             <% nameMen.map(function(men){ %>
+                                                               <li>  <input type="radio" name="nameMen" value="<%= men._id %>"><%= men.fullName %></input></li>
+                                                             <% }); %>
+                       </ul>
+                                                     </div>
+
+    <button class="btn btn-default">Submit</button>
+</form>

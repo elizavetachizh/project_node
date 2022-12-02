@@ -1,14 +1,16 @@
 const express = require("express");
 const router = express.Router();
 const auth = require("../config/auth");
-const Departament = require("../models/departaments");
+const Management = require("../models/management");
+const isUser = auth.isUser;
 router.get("/", function (req, res) {
-  Departament.find(function (err, departament) {
+  Management.find(function (err, management) {
+
     // res.render("managment", {
     //   management: management,
     // });
-    console.log(departament);
-    res.send(departament);
+    console.log(management);
+    res.send(management);
   });
 });
 

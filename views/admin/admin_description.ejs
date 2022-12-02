@@ -1,0 +1,27 @@
+
+<h2 class="page-title">Управление</h2>
+<a href="/admin_description/add-description" class="btn btn-primary">Добавить новое описание</a>
+<br><br>
+
+<table class="table table-striped sorting">
+
+    <thead>
+      <tr class="home">
+                  <th>nameDescription</th>
+                  <th>inform</th>
+                  <th>Edit</th>
+                  <th>Delete</th>
+              </tr>
+    </thead>
+     <tbody>
+            <% description.forEach(function(el){ %>
+            <tr>
+                <td><%= el.nameDescription %></td>
+                <td><%= el.inform %></td>
+
+                <td><a href="/admin_description/edit-description/<%= el._id %>">Edit</a></td>
+                <td><a class="confirmDeletion" href="/admin_description/delete-description/<%= el._id %>">Delete</a></td>
+            </tr>
+            <% }); %>
+        </tbody>
+</table>

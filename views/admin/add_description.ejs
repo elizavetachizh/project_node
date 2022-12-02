@@ -1,0 +1,15 @@
+<form method="post" action="/admin_description/add-description/" enctype="multipart/form-data">
+
+    <div class="form-group">
+        <label for="">nameDescription</label>
+        <input type="text" class="form-control" name="nameDescription" value="<%= nameDescription %>" placeholder="nameDescription">
+    </div>
+
+     <div class="form-group">
+            <label for="">inform</label>
+          <textarea name="inform" class="form-control" cols="30" id="ta"  rows="10" placeholder="inform"><%= inform %></textarea>
+        </div>
+
+    <button class="btn btn-default">Добавить</button>
+
+</form>

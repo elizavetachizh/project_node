@@ -17,14 +17,16 @@
  <ul class="nav nav-pills">
    <% if (user) { %>
      <% if (user && user.admin == 1) { %>
-     <li class="nav-item"><a href="/admin_page/add_page" class="nav-link">Панель администрирования</a></li>
-      <li class="nav-item"><a href="/admin_page" class="nav-link">Страницы</a></li>
+     <li class="nav-item"><a href="/admin_page/add_page" class="nav-link">Панель администрирования Страницы</a></li>
       <li class="nav-item"><a href="/admin_category" class="nav-link">Категории</a></li>
       <li class="nav-item"><a href="/admin_products" class="nav-link">Продукты</a></li>
         <li class="nav-item"><a href="/admin_posts" class="nav-link">Посты</a></li>
              <li class="nav-item"><a href="/admin_departament" class="nav-link">Отделы</a></li>
              <li class="nav-item"><a href="/admin_management" class="nav-link">Руководоство</a></li>
                           <li class="nav-item"><a href="/admin_tenders" class="nav-link">Тендеры</a></li>
+                           <li class="nav-item"><a href="/admin_article" class="nav-link">Статьи</a></li>
+                               <li class="nav-item"><a href="/admin_description" class="nav-link">Информация услуг</a></li>
+                                   <li class="nav-item"><a href="/admin_services" class="nav-link">Услуги</a></li>
       <% }%>
  <% if (user && user.admin !== 1) { %>
   <% pages.forEach(function(page){ %>
@@ -41,6 +43,9 @@
            )</a></li>
              <li class="nav-item"><a href="/posts" class="nav-link">Посты</a></li>
                        <li class="nav-item"><a href="/tenders" class="nav-link">Тендеры</a></li>
+                             <li class="nav-item"><a href="/articles" class="nav-link">Статьи</a></li>
+                                    <li class="nav-item"><a href="/management" class="nav-link">Руководство</a></li>
+<li class="nav-item"><a href="/departament" class="nav-link">Отделы</a></li>
            <% if (user) { %>
            <li  class="nav-item"> <a  class="nav-link" href="/users/logout">Добро пожаловать, <%= user.username %> ( Выйти )</a></li>
           <% } else {%>

@@ -18,6 +18,9 @@ div.row {
   margin-right: 0;
   margin-left: 0;
 }
-img.img{
+img.img {
   width: 70%;
+}
+ul.list-without-dots {
+  list-style-type: none; /* Remove bullets */
 }

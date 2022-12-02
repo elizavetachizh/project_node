@@ -14,28 +14,19 @@
             <label for="">Должность</label>
             <input type="text" class="form-control" name="position" value="<%= position %>" placeholder="position">
         </div>
-            <div class="form-group">
-                   <label for="">Категория</label>
-
-                       <% name.forEach(function(dep){ %>
-                           <input type="checkbox" name="name" value="<%= name %>"><%= dep.name %></input>
-                       <% }); %>
-
-               </div>
-
-                <div class="form-group">
+           <div class="form-group">
                                   <label for="">department</label>
-
-                                      <% department.forEach(function(dep){ %>
-                                          <input type="checkbox" name="department" value="<%= department %>"><%= dep.name %></input>
+<ul class="list-without-dots">
+                                      <% department.map(function(dep){ %>
+                                        <li>  <input type="checkbox" name="department" value="<%= dep.name %>"><%= dep.name %></input></li>
                                       <% }); %>
-
+</ul>
                               </div>
 
-    <div class="form-group">
+ <div class="form-group">
         <label for="">Картинка</label>
-        <input type="file" class="form-control" name="image" id="img">
-        <img src="#" id="imgPreview" alt="">
+        <input type="text" class="form-control" name="image" id="img" value="<%= image %>">
+
     </div>
 
     <button class="btn btn-default">Добавить</button>

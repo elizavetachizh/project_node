@@ -29,14 +29,14 @@ router.get("/add-article", isAdmin, function (req, res) {
 });
 
 router.post("/add-article", (req, res) => {
-  req.checkBody("content", "Описание должно быть заполненым").notEmpty();
-  req.checkBody("image", "Картинка должна быть загружена").notEmpty();
+  // req.checkBody("content", "Описание должно быть заполненым").notEmpty();
+  // req.checkBody("image", "Картинка должна быть загружена").notEmpty();
 
   var content = req.body.content;
   var image = req.body.image;
 
   var errors = req.validationErrors();
-
+  console.log(content);
   if (errors) {
     console.log(errors);
     res.render("admin/add_article", {
@@ -45,26 +45,30 @@ router.post("/add-article", (req, res) => {
       image: image,
     });
   } else {
-    mainArticle.findOne({ content: content }, function (err, article) {
-      if (article) {
-        res.render("admin/add_article", {
-          content: content,
-          image: image,
-        });
-      } else {
-        var article = new mainArticle({
-          content: content,
-          image: image,
-        });
-        article.save(function (err) {
-          if (err) {
-            return console.log(err);
-          }
-          req.flash("success", "Пост добавлен");
-          res.redirect("/admin_article");
-        });
+    mainArticle.findOne(
+      { content: content, image: image },
+      function (err, article) {
+        if (article) {
+          res.render("admin/add_article", {
+            content: content,
+            image: image,
+          });
+        } else {
+          var article = new mainArticle({
+            content: content,
+            image: image,
+          });
+          console.log(article);
+          article.save(function (err) {
+            if (err) {
+              return console.log(err);
+            }
+            req.flash("success", "Пост добавлен");
+            res.redirect("/admin_article");
+          });
+        }
       }
-    });
+    );
   }
 });
 
@@ -129,7 +133,7 @@ router.post("/edit-article/:id", function (req, res) {
 
               req.flash("success", "пост отредактирован!");
               alert("Пост отредактирован");
-              res.redirect("/admin_posts/edit-post/" + id);
+              res.redirect("/admin_article/edit-article/" + id);
             });
             console.log(article);
           });
