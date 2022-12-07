@@ -18,8 +18,6 @@
    <% if (user) { %>
      <% if (user && user.admin == 1) { %>
      <li class="nav-item"><a href="/admin_page/add_page" class="nav-link">Панель администрирования Страницы</a></li>
-      <li class="nav-item"><a href="/admin_category" class="nav-link">Категории</a></li>
-      <li class="nav-item"><a href="/admin_products" class="nav-link">Продукты</a></li>
         <li class="nav-item"><a href="/admin_posts" class="nav-link">Посты</a></li>
              <li class="nav-item"><a href="/admin_departament" class="nav-link">Отделы</a></li>
              <li class="nav-item"><a href="/admin_management" class="nav-link">Руководоство</a></li>
@@ -34,13 +32,6 @@
   <% }); %>
   <% }%>
   <% } %>
-     <li class="nav-item"> <a  class="nav-link" href="/cart/checkout">Добавленые карточки (
-       <% if (typeof cart !== "undefined") { %>
-           <%= cart.length %>
-             <% } else {%>
-                0
-              <% } %>
-           )</a></li>
              <li class="nav-item"><a href="/posts" class="nav-link">Посты</a></li>
                        <li class="nav-item"><a href="/tenders" class="nav-link">Тендеры</a></li>
                              <li class="nav-item"><a href="/articles" class="nav-link">Статьи</a></li>
